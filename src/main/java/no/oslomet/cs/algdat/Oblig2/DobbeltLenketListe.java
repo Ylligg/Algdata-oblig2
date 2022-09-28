@@ -4,8 +4,9 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import java.util.Comparator;
 import java.util.Iterator;
-
+import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -36,19 +37,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
+
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+
     }
 
+
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+
+        if(a == null) {
+            Objects.requireNonNull(a, "Tabellen a er null!");
+        }
+
+        for(int i =0; i < a.length;i++) {
+            antall++;
+
+            if(a[i] == null){
+                antall--;
+            }
+
+        }
     }
+
+
 
     public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
     }
 
-    // oppgave 1
     @Override
     public int antall() {
         return antall;
@@ -56,12 +72,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() {
-        if(antall != 0) {
-            return true;
-        } else{
+        if(antall() != 0) {
             return false;
+        } else{
+            return true;
         }
+
     }
+
 
     @Override
     public boolean leggInn(T verdi) {
@@ -158,7 +176,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     } // class DobbeltLenketListeIterator
 
-    public static <T> void sorter(Liste<T> liste, Comparator <? super T> c) {
+    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         throw new UnsupportedOperationException();
     }
 
