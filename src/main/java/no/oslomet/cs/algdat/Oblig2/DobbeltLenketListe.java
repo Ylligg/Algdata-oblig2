@@ -48,14 +48,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    // oppgave 1
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        return antall;
     }
 
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+        if(antall != 0) {
+            return true;
+        } else{
+            return false;
+        }
     }
 
     @Override
@@ -153,7 +158,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     } // class DobbeltLenketListeIterator
 
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+    public static <T> void sorter(Liste<T> liste, Comparator <? super T> c) {
         throw new UnsupportedOperationException();
     }
 
