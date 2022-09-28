@@ -1,1 +1,0 @@
-package main.java.no.oslomet.cs.algdat.Oblig2;
