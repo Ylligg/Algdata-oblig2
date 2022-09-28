@@ -4,8 +4,8 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.Comparator;
 import java.util.Iterator;
+
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
