@@ -44,22 +44,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public DobbeltLenketListe(T[] a) {
-
         if(a == null) {
-            Objects.requireNonNull(a, "Tabellen a er null!");
+            Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
         }
 
         for(int i =0; i < a.length;i++) {
-            antall++;
-
-            if(a[i] == null){
-                antall--;
+            antall++; // øker antallet av elementer i tabellen
+            if(a[i] == null){ // finne posisjonen til node tabellen
+                antall--; // om det er en posisjon som er null så trekkes den fra antallet
             }
-
         }
+       // System.out.println(antall() + " " + tom());
     }
-
-
 
     public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
@@ -67,11 +63,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-        return antall;
+        return antall; // returnerer antall
     }
 
     @Override
-    public boolean tom() {
+    public boolean tom() { // ser om tabellen er tom
         if(antall() != 0) {
             return false;
         } else{
