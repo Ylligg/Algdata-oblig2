@@ -40,27 +40,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     }
 
-
-    public DobbeltLenketListe(T[] a) {
+    LinkedList liste = new LinkedList();
+    public DobbeltLenketListe(T[] a) { // skal lage listen
 
         if(a == null) {
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
         }
 
         for(int i =0; i < a.length;i++) {
-
             if (a[i] == null) { // finne posisjonen til node tabellen
                antall+=0;// om det er en posisjon som er null så adder det ikke noe i antallet
             }
 
             if (a[i] != null) {
+                liste.add(a[i]);
                 antall++; // øker antallet av elementer i tabellen
             }
-
         }
-
-
-       // System.out.println(antall() + " " + tom());
+        //System.out.println(liste + " hei");
     }
 
 
@@ -80,16 +77,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         } else{
             return true;
         }
-
     }
 
 
     @Override
-    public boolean leggInn(T verdi) {
+    public boolean leggInn(T verdi) { // finn en måte å legge inn verdier på idk how.
         if(verdi == null){
             Objects.requireNonNull(verdi, "Verdien er null!"); // gir en melding hvis tabellen er null
             return false;
         } else{
+            liste.add(verdi);
             antall++;
             return true;
         }
@@ -136,23 +133,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     @Override
-    public String toString() { // oppgave 2 hode->hale
-        StringJoiner joiner = new StringJoiner(",","[", "]" );
+    public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
+        StringJoiner joiner = new StringJoiner(",");
 
         if(antall == 0){
             return "[]";
         }
+
+        joiner.add(liste.toString());
 
         return joiner.toString();
     }
 
     public String omvendtString() { // oppgave 2 hale->hode
-        StringJoiner joiner = new StringJoiner(",","[", "]" );
-        joiner.add("1");
+        StringJoiner joiner = new StringJoiner(",");
+
         if(antall == 0){
             return "[]";
         }
 
+        joiner.add(liste.toString());
 
         return joiner.toString();
     }
