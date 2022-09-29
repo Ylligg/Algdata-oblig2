@@ -4,9 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -44,18 +42,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public DobbeltLenketListe(T[] a) {
+
         if(a == null) {
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
         }
 
         for(int i =0; i < a.length;i++) {
-            antall++; // øker antallet av elementer i tabellen
-            if(a[i] == null){ // finne posisjonen til node tabellen
-                antall--; // om det er en posisjon som er null så trekkes den fra antallet
+
+            if (a[i] == null) { // finne posisjonen til node tabellen
+               antall+=0;// om det er en posisjon som er null så adder det ikke noe i antallet
             }
+
+            if (a[i] != null) {
+                antall++; // øker antallet av elementer i tabellen
+            }
+
         }
+
+
        // System.out.println(antall() + " " + tom());
     }
+
 
     public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
@@ -79,7 +86,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+        if(verdi == null){
+            Objects.requireNonNull(verdi, "Verdien er null!"); // gir en melding hvis tabellen er null
+            return false;
+        } else{
+            antall++;
+            return true;
+        }
     }
 
     @Override
@@ -123,12 +136,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     @Override
-    public String toString() {
-        throw new UnsupportedOperationException();
+    public String toString() { // oppgave 2 hode->hale
+        StringJoiner joiner = new StringJoiner(",","[", "]" );
+
+        if(antall == 0){
+            return "[]";
+        }
+
+        return joiner.toString();
     }
 
-    public String omvendtString() {
-        throw new UnsupportedOperationException();
+    public String omvendtString() { // oppgave 2 hale->hode
+        StringJoiner joiner = new StringJoiner(",","[", "]" );
+        joiner.add("1");
+        if(antall == 0){
+            return "[]";
+        }
+
+
+        return joiner.toString();
     }
 
     @Override
