@@ -39,15 +39,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe() {
     }
 
+
+    // målet er å ha en liste som kan gå fram og tilbake ved hjelp av hode og hale pekeren
+
     LinkedList liste = new LinkedList();
     LinkedList omvendtliste = new LinkedList();
+
     public DobbeltLenketListe(T[] a) { // skal lage listen
 
 
-
-        if(a == null) {
+        if(a == null) { // riktig
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
         }
+
+
+        // må finne en måte å implimintere koden for linked lists
 
         for(int i =0; i < a.length;i++) {
             antall++; // øker antallet av elementer i tabellen
@@ -82,10 +88,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return true;
     }
 
-
     @Override
     public boolean leggInn(T verdi) { // finn en måte å legge inn verdier på idk how.
 
+        // må finne en måte å imlimintere hode slik at den kan oppdateres til å peke mot den nye Noden siden når vi adder ny Node så
 
         if(verdi == null){
             Objects.requireNonNull(verdi, "Verdien er null!"); // gir en melding hvis tabellen er null
@@ -146,20 +152,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-
-
     public String omvendtString() { // oppgave 2 hale->hode
-        StringJoiner joiner = new StringJoiner(",");
+        StringJoiner joiner = new StringJoiner(","); // trenger denne
 
+        // dette er bare feil
 
         for(int i = liste.size(); i>0;i--){
             omvendtliste.add(i);
         }
-
         joiner.add(omvendtliste.toString());
-        omvendtliste.clear();
+        omvendtliste.clear(); // skal egt ikke ha dette men må pga løkka
 
-        return joiner.toString();
+        return joiner.toString(); // riktig
 
     }
 
