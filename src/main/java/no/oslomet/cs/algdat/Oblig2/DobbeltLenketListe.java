@@ -37,24 +37,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public DobbeltLenketListe() {
-
     }
 
     LinkedList liste = new LinkedList();
+    LinkedList omvendtliste = new LinkedList();
     public DobbeltLenketListe(T[] a) { // skal lage listen
+
+
 
         if(a == null) {
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
         }
 
         for(int i =0; i < a.length;i++) {
-            if (a[i] == null) { // finne posisjonen til node tabellen
-               antall+=0;// om det er en posisjon som er null så adder det ikke noe i antallet
+            antall++; // øker antallet av elementer i tabellen
+            endringer++;
+
+            if (a[i] == null) { // finne posisjonen til node tabellen, om den er null så skal den ikke tas med
+               antall--;// om det er en posisjon som er null så reduseres antallet med en
+                endringer++;
             }
 
-            if (a[i] != null) {
+            if (a[i] != null) { // om verdien er ikke null så addes den inn i listen
                 liste.add(a[i]);
-                antall++; // øker antallet av elementer i tabellen
+
             }
         }
         //System.out.println(liste + " hei");
@@ -65,23 +71,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-    @Override
+    @Override // riktig
     public int antall() {
         return antall; // returnerer antall
     }
 
-    @Override
+    @Override //riktig
     public boolean tom() { // ser om tabellen er tom
-        if(antall() != 0) {
-            return false;
-        } else{
-            return true;
-        }
+        if(antall != 0) {return false;}
+        return true;
     }
 
 
     @Override
     public boolean leggInn(T verdi) { // finn en måte å legge inn verdier på idk how.
+
+
         if(verdi == null){
             Objects.requireNonNull(verdi, "Verdien er null!"); // gir en melding hvis tabellen er null
             return false;
@@ -135,26 +140,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
         StringJoiner joiner = new StringJoiner(",");
-
-        if(antall == 0){
-            return "[]";
-        }
-
         joiner.add(liste.toString());
 
         return joiner.toString();
     }
 
+
+
+
     public String omvendtString() { // oppgave 2 hale->hode
         StringJoiner joiner = new StringJoiner(",");
 
-        if(antall == 0){
-            return "[]";
+
+        for(int i = liste.size(); i>0;i--){
+            omvendtliste.add(i);
         }
 
-        joiner.add(liste.toString());
+        joiner.add(omvendtliste.toString());
+        omvendtliste.clear();
 
         return joiner.toString();
+
     }
 
     @Override
