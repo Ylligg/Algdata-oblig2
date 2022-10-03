@@ -42,32 +42,46 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     // målet er å ha en liste som kan gå fram og tilbake ved hjelp av hode og hale pekeren
 
-    LinkedList liste = new LinkedList();
-    LinkedList omvendtliste = new LinkedList();
 
     public DobbeltLenketListe(T[] a) { // skal lage listen
+    this.hode = null;
+    this.hale = null;
 
 
         if(a == null) { // riktig
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
         }
 
+        if(a.length > 0){
+            int i =0;
+            for(; i < a.length;i++) {
+
+                if (a[i] != null) { // om verdien er ikke null så addes den inn i listen
+                    hode = new Node<>(a[i]); // lager en ny node
+                    antall++; // øker variabel antall av antall elementer i tabellen
+                    break;
+                }
+            }
+            hale = hode;
+            i++;
+            for(; i < a.length;i++){
+                if (a[i] != null) {
+
+            }
+        }
+
+
 
         // må finne en måte å implimintere koden for linked lists
 
-        for(int i =0; i < a.length;i++) {
-            antall++; // øker antallet av elementer i tabellen
-            endringer++;
+
+            antall++;
 
             if (a[i] == null) { // finne posisjonen til node tabellen, om den er null så skal den ikke tas med
                antall--;// om det er en posisjon som er null så reduseres antallet med en
-                endringer++;
             }
 
-            if (a[i] != null) { // om verdien er ikke null så addes den inn i listen
-                liste.add(a[i]);
 
-            }
         }
         //System.out.println(liste + " hei");
     }
@@ -101,6 +115,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             antall++;
             return true;
         }
+
     }
 
     @Override
