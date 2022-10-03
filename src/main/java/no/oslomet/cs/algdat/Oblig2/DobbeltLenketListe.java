@@ -40,11 +40,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-    // målet er å ha en liste som kan gå fram og tilbake ved hjelp av hode og hale pekeren
-
 
     public DobbeltLenketListe(T[] a) { // skal lage listen
-
 
         if(a == null) {
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
@@ -63,6 +60,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale = hode; // hvis det er bare en verdi så vil hode og hale være i samme posisjon
             i++;
             for(; i < a.length;i++){
+
                 if (a[i] != null) {
                     hale = new Node<>(a[i]); // nye noden blir hale
                     hale.neste = hale; // halen fortsetter til slutten av tabellen
@@ -90,8 +88,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-
-        // må finne en måte å imlimintere hode slik at den kan oppdateres til å peke mot den nye Noden siden når vi adder ny Node så
 
         if(verdi == null){
             Objects.requireNonNull(verdi, "Verdien er null!"); // gir en melding hvis tabellen er null
