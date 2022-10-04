@@ -4,7 +4,17 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Iterator;
+
+
+import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
+import java.util.StringJoiner;
+
+import java.util.Objects;
+import java.util.function.Predicate;
+
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -113,17 +123,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-    //--------Oppgave3 a.2 START-----------------
     @Override
     public T hent(int indeks) {
-
-        indeksKontroll(indeks, false);
-        Node<T> nåværende = finnNode(indeks);
-
-        return nåværende.verdi;
+        throw new UnsupportedOperationException();
     }
-//-----------------Oppgave3 a.2 FERDIG---------------------------
-
 
     @Override
     public int indeksTil(T verdi) {
@@ -133,7 +136,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T oppdater(int indeks, T nyverdi) {
         throw new UnsupportedOperationException();
+
+        //------------------------OPPGAVE 3.a.3 START-------------------------------------
+//****Den  skal  erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før***
+        Objects.requireNonNull(nyverdi);
+        indeksKontroll(indeks,false);
+        Node<T> nåværende = finnNode(indeks);
+
+        endringer++;
+
+        nåværende.verdi = nyverdi;
+
+        return nåværende.verdi;
     }
+//-----------------------OPPGAVE 3.a.3 FERDIG---------------------------------------
 
     @Override
     public boolean fjern(T verdi) {
