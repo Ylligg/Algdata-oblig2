@@ -113,10 +113,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //--------Oppgave3 a.2 START-----------------
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+
+        indeksKontroll(indeks, false);
+        Node<T> nåværende = finnNode(indeks);
+
+        return nåværende.verdi;
     }
+//-----------------Oppgave3 a.2 FERDIG---------------------------
+
 
     @Override
     public int indeksTil(T verdi) {
