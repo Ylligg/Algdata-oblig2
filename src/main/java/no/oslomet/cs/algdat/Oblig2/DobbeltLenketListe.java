@@ -205,6 +205,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         throw new UnsupportedOperationException();
     }
+    //------------------Oppgave 3 a.1--------//
+    private Node<T> finnNode(int indeks) {
+        Node<T>nåværende;
+        if (indeks<antall/2) {
+            nåværende = hode;
+            for (int i = 0; i < indeks; i++) {
+                nåværende = nåværende.neste;
+
+            }
+            return nåværende;
+        }
+        else{
+            nåværende=hale;
+            for (int i = antall - 1; i > indeks; i--) {
+                nåværende = nåværende.forrige;
+            }
+            return nåværende;
+        }}
+    //------------------Oppgave 3 a.1 er ferdig--------//
 
 } // class DobbeltLenketListe
 
