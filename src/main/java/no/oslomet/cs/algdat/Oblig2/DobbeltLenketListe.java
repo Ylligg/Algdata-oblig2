@@ -84,8 +84,40 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        //----------------OPPGAVE 3.b START--------------
+        fraTilKontroll(antall,fra,til); //Sjekkes om indeksene fra og til er lovlige.
+        Liste<T> liste= new DobbeltLenketListe<>();
+//Bytt  ut ordet tablengde med ordet antall
+        int antall=til-fra;
+
+        if (antall<=0){
+            return liste;
+        }
+
+        Node<T> nåværende = finnNode(fra);
+
+        while (antall > 0) {
+            liste.leggInn(nåværende.verdi);
+            nåværende = nåværende.neste;
+            antall--;
+        }
+
+        return liste;
+
     }
+    //----------------OPPGAVE 3.b FERDIG--------------
+    //-----------------Oppgave 3.b hjelpemetode-------
+    private void fraTilKontroll(int tabellengde, int fra, int til) {
+        tabellengde=til-fra;
+        if (fra < 0 || til > antall) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (fra > til) {
+            throw new IllegalArgumentException();
+        }
+    }
+    //---------Oppgave 3.b hjelpemetode ferdig--------
+
 
     @Override // riktig
     public int antall() {
