@@ -192,11 +192,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T fjern(int indeks) {
         throw new UnsupportedOperationException();
     }
-
+    
+    //-----------------------Oppgave 7------------------------
+    // 1.utkast
     @Override
     public void nullstill() {
-        throw new UnsupportedOperationException();
+        Node temp = new Node<>();
+
+        while (this.hode != null) {
+            temp = this.hode;
+            this.hode = this.hode.neste;
+            temp = null;
+            endringer ++;
+        }
+        hode=null;
+        hale=null;
+        antall=0;
     }
+    
+    //----------------------Oppgave 7 Ferdig----------------------
 
     @Override
     public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
