@@ -4,7 +4,17 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Iterator;
+
+
+import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
+import java.util.StringJoiner;
+
+import java.util.Objects;
+import java.util.function.Predicate;
+
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -72,8 +82,40 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        //----------------OPPGAVE 3.b START--------------
+        fraTilKontroll(antall,fra,til); //Sjekkes om indeksene fra og til er lovlige.
+        Liste<T> liste= new DobbeltLenketListe<>();
+//Bytt  ut ordet tablengde med ordet antall
+        int antall=til-fra;
+
+        if (antall<=0){
+            return liste;
+        }
+
+        Node<T> nåværende = finnNode(fra);
+
+        while (antall > 0) {
+            liste.leggInn(nåværende.verdi);
+            nåværende = nåværende.neste;
+            antall--;
+        }
+
+        return liste;
+
     }
+    //----------------OPPGAVE 3.b FERDIG--------------
+    //-----------------Oppgave 3.b hjelpemetode-------
+    private void fraTilKontroll(int tabellengde, int fra, int til) {
+        tabellengde=til-fra;
+        if (fra < 0 || til > antall) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (fra > til) {
+            throw new IllegalArgumentException();
+        }
+    }
+    //---------Oppgave 3.b hjelpemetode ferdig--------
+
 
     @Override // riktig
     public int antall() {
@@ -109,17 +151,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-    //--------Oppgave3 a.2 START-----------------
     @Override
     public T hent(int indeks) {
-
-        indeksKontroll(indeks, false);
-        Node<T> nåværende = finnNode(indeks);
-
-        return nåværende.verdi;
+        throw new UnsupportedOperationException();
     }
-//-----------------Oppgave3 a.2 FERDIG---------------------------
-
 
     @Override
     public int indeksTil(T verdi) {
@@ -129,7 +164,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T oppdater(int indeks, T nyverdi) {
         throw new UnsupportedOperationException();
+
+        //------------------------OPPGAVE 3.a.3 START-------------------------------------
+//****Den  skal  erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før***
+        Objects.requireNonNull(nyverdi);
+        indeksKontroll(indeks,false);
+        Node<T> nåværende = finnNode(indeks);
+
+        endringer++;
+
+        nåværende.verdi = nyverdi;
+
+        return nåværende.verdi;
     }
+//-----------------------OPPGAVE 3.a.3 FERDIG---------------------------------------
 
     @Override
     public boolean fjern(T verdi) {
@@ -140,11 +188,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T fjern(int indeks) {
         throw new UnsupportedOperationException();
     }
-
+    
+    //-----------------------Oppgave 7------------------------
+    // 1.utkast
     @Override
     public void nullstill() {
-        throw new UnsupportedOperationException();
+        Node temp = new Node<>();
+
+        while (this.hode != null) {
+            temp = this.hode;
+            this.hode = this.hode.neste;
+            temp = null;
+            endringer ++;
+        }
+        hode=null;
+        hale=null;
+        antall=0;
     }
+    
+    //----------------------Oppgave 7 Ferdig----------------------
 
     @Override
     public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
