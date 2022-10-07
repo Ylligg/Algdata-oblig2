@@ -49,34 +49,47 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe() {
     }
 
-
+    //--------Oppgave1 -----------------
 
     public DobbeltLenketListe(T[] a) { // skal lage listen
 
-        if(a == null) {
+
+        if(a == null) { // kaster en feil hvis tabellen er null
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
         }
 
         if(a.length > 0){
-            int i =0;
-            for(; i < a.length;i++) {
+            int v = 0; // har en variabel for effektiviteten av søket
 
-                if (a[i] != null) { // om verdien er ikke null så lages det en ny node
-                    hode = new Node<>(a[i]); // den nye noden blir hoden siden den blir adda fra ventre siden
-                    antall++; // øker variabel antall av antall elementer i tabellen
-                    break; // går ut av løkka
+                for(int i =0; i < a.length;i++){ // ser gjennom om de første verdiene er null, hvis ikke så setter den  verdien til å bli hode
+                    if(a[v] == null) v++; // fortsetter til den ikke er null
+
+                    else { // når den ikke er null så er den hode og løkka er ferdig
+                       hode= new Node<>(a[v]);
+                       break;
+                    }
+                }
+
+            hode = new Node<>(a[0]); // ellers så er første posisjonen hode
+            Node current = hode; // lager en variabel for å finne
+
+            for(int i =v; i < a.length;i++){ // gjør det mer effektiv hvis de første veridene er null så starter vi med løkka til når det ikke er null
+                Node ny = new Node(a[i]);
+                ny.forrige = current;
+                current. neste = ny;
+                current = ny;
+                antall++;
+
+                if(a[i]==null) {
+                    antall--;
+                    continue;
                 }
             }
-            hale = hode; // hvis det er bare en verdi så vil hode og hale være i samme posisjon
-            i++;
-            for(; i < a.length;i++){
 
-                if (a[i] != null) {
-                    hale = new Node<>(a[i]); // nye noden blir hale
-                    hale.neste = hale; // halen fortsetter til slutten av tabellen
-                    antall++;
-                }
-            }
+            hale = current;
+
+
+
         }
     }
 
@@ -117,17 +130,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //---------Oppgave 3.b hjelpemetode ferdig--------
 
 
-    @Override // riktig
+    //--------Oppgave1 -----------------
+    @Override
     public int antall() {
         return antall; // returnerer antall
     }
 
-    @Override //riktig
+
+    //--------Oppgave1 -----------------
+    @Override
     public boolean tom() { // ser om tabellen er tom
         if(antall != 0) {return false;}
         return true;
     }
-
+    //--------Oppgave1 -----------------
     @Override
     public boolean leggInn(T verdi) {
 
@@ -167,15 +183,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         //------------------------OPPGAVE 3.a.3 START-------------------------------------
 //****Den  skal  erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før***
-        Objects.requireNonNull(nyverdi);
-        indeksKontroll(indeks,false);
-        Node<T> nåværende = finnNode(indeks);
 
-        endringer++;
 
-        nåværende.verdi = nyverdi;
-
-        return nåværende.verdi;
     }
 //-----------------------OPPGAVE 3.a.3 FERDIG---------------------------------------
 
@@ -193,7 +202,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // 1.utkast
     @Override
     public void nullstill() {
-        Node temp = new Node<>();
+        Node temp = new Node<>("");
 
         while (this.hode != null) {
             temp = this.hode;
@@ -211,19 +220,36 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
         StringJoiner joiner = new StringJoiner(",");
+/*
+            if(liste.size() == 0){
+                joiner.add("[]");
+
+            } else {
 
 
+                for(int i=0; i < 1; i++){
+
+                }
+            }
+*/
         return joiner.toString();
     }
 
 
     public String omvendtString() { // oppgave 2 hale->hode
         StringJoiner joiner = new StringJoiner(","); // trenger denne
+/*
+            if(liste.size() == 0){
+                joiner.add("[]");
+            } else{
 
 
+                joiner.add(hale.toString());
 
-        return joiner.toString(); // riktig
-
+            }
+        return joiner.toString();
+*/
+        return joiner.toString();
     }
 
     @Override
