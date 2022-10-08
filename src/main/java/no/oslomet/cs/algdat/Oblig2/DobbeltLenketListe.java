@@ -13,6 +13,8 @@ import java.util.function.Predicate;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
 
+
+
     /**
      * Node class
      *
@@ -41,12 +43,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public DobbeltLenketListe() {
+
     }
+
 
     //--------Oppgave1 -----------------
     LinkedList liste = new LinkedList();
     public DobbeltLenketListe(T[] a) { // skal lage listen dobbel lenket liste
 
+        DobbeltLenketListe<Integer> list = new DobbeltLenketListe<>();
+        System.out.println(list.toString() + " " + list.omvendtString());
+        for (int i = 1; i <= 2; i++) {
+            list.leggInn(i);
+            System.out.println(list.toString() + " " + list.omvendtString());
+        }
 
         if(a == null) { // kaster en feil hvis tabellen er null
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
@@ -88,6 +98,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public Liste<T> subliste(int fra, int til) {
+
         //----------------OPPGAVE 3.b START--------------
         fraTilKontroll(antall,fra,til); //Sjekkes om indeksene fra og til er lovlige.
         Liste<T> liste= new DobbeltLenketListe<>();
@@ -107,6 +118,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         return liste;
+
+
 
     }
     //----------------OPPGAVE 3.b FERDIG--------------
@@ -129,7 +142,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return antall; // returnerer antall
     }
 
-
     //--------Oppgave1 -----------------
     @Override
     public boolean tom() { // ser om tabellen er tom
@@ -145,11 +157,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return false;
         }
 
-        liste.add(verdi);
+        Node lagtinn = new Node(verdi);
+        endringer++;
         antall++;
+        liste.add(lagtinn.verdi);
         return true;
 
     }
+
 
     @Override
     public void leggInn(int indeks, T verdi) {
@@ -216,14 +231,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(liste.size() == 0){
             joiner.add("");
             return joiner.toString();
-
         }
             hode = new Node(liste.get(0));
             for (int i = 0; i < liste.size(); i++) {
-                Node ny = new Node(liste.get(i));
-                hode.neste = ny;
+                Node høyre = new Node(liste.get(i));
+                hode.neste = høyre;
                 joiner.add(hode.neste.verdi.toString());
-
             }
 
         return joiner.toString();
