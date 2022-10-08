@@ -152,8 +152,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean leggInn(T verdi) {
 
+
         if(verdi == null){
-            Objects.requireNonNull(verdi, "Verdien er null!"); // gir en melding hvis tabellen er null
+             // gir en melding hvis tabellen er null
             return false;
         }
 
@@ -165,10 +166,31 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     }
 
-
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+
+        if(verdi == null) { // kaster en feil hvis tabellen er null
+            Objects.requireNonNull(verdi, "Tabellen a er null!"); // gir en melding hvis tabellen er null
+        }
+
+
+        try {
+
+                if (indeks >= 0 && indeks <= antall) {
+                    antall++;
+                    endringer++;
+                    liste.add(indeks, verdi);
+                }
+
+                if (liste.size() == 0 && indeks == 0) {
+                    liste.add(indeks, verdi);
+                }
+
+
+        } catch(IndexOutOfBoundsException e){
+            e.printStackTrace();
+          }
+
     }
 
     @Override
@@ -193,9 +215,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 return i;
             }
         }
-
         return -1;
-
     }
 
     @Override
@@ -250,7 +270,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hode.neste = høyre;
                 joiner.add(hode.neste.verdi.toString());
             }
-
         return joiner.toString();
     }
 
