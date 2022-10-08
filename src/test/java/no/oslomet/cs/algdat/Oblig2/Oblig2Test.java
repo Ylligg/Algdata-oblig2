@@ -178,7 +178,7 @@ class Oblig2Test {
 
         if (!liste.toString().equals("[]")) {
             antallFeil++;
-            System.out.println("Oppgave 2e: Tom liste skal gi []!");
+            System.out.println("Oppgave 2e: Du har" + liste+ "Tom liste skal gi []!");
         }
 
         if (!liste.omvendtString().equals("[]")) {

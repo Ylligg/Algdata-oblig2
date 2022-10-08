@@ -4,15 +4,9 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.Comparator;
-import java.util.Iterator;
+import java.util.*;
 
 
-import java.util.ConcurrentModificationException;
-import java.util.NoSuchElementException;
-import java.util.StringJoiner;
-
-import java.util.Objects;
 import java.util.function.Predicate;
 
 
@@ -50,8 +44,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     //--------Oppgave1 -----------------
-
-    public DobbeltLenketListe(T[] a) { // skal lage listen
+    LinkedList liste = new LinkedList();
+    public DobbeltLenketListe(T[] a) { // skal lage listen dobbel lenket liste
 
 
         if(a == null) { // kaster en feil hvis tabellen er null
@@ -76,19 +70,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             for(int i =v; i < a.length;i++){ // gjør det mer effektiv hvis de første veridene er null så starter vi med løkka til når det ikke er null
                 Node ny = new Node(a[i]);
                 ny.forrige = current;
-                current. neste = ny;
+                current.neste = ny;
                 current = ny;
                 antall++;
 
                 if(a[i]==null) {
                     antall--;
                     continue;
+                } else{
+                    liste.add(a[i]);
                 }
             }
-
             hale = current;
-
-
 
         }
     }
@@ -150,10 +143,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(verdi == null){
             Objects.requireNonNull(verdi, "Verdien er null!"); // gir en melding hvis tabellen er null
             return false;
-        } else{
-            antall++;
-            return true;
         }
+
+        liste.add(verdi);
+        antall++;
+        return true;
 
     }
 
@@ -214,41 +208,42 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         hale=null;
         antall=0;
     }
-    
-    //----------------------Oppgave 7 Ferdig----------------------
 
     @Override
     public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
-        StringJoiner joiner = new StringJoiner(",");
-/*
-            if(liste.size() == 0){
-                joiner.add("[]");
+        StringJoiner joiner = new StringJoiner(", ", "[","]");
 
-            } else {
+        if(liste.size() == 0){
+            joiner.add("");
+            return joiner.toString();
 
+        }
+            hode = new Node(liste.get(0));
+            for (int i = 0; i < liste.size(); i++) {
+                Node ny = new Node(liste.get(i));
+                hode.neste = ny;
+                joiner.add(hode.neste.verdi.toString());
 
-                for(int i=0; i < 1; i++){
-
-                }
             }
-*/
+
         return joiner.toString();
     }
 
 
     public String omvendtString() { // oppgave 2 hale->hode
-        StringJoiner joiner = new StringJoiner(","); // trenger denne
-/*
-            if(liste.size() == 0){
-                joiner.add("[]");
-            } else{
+        StringJoiner joiner = new StringJoiner(", ", "[", "]"); // trenger denne
 
-
-                joiner.add(hale.toString());
-
+        if(liste.size() == 0){
+            joiner.add("");
+            return joiner.toString();
+        }
+            hale = new Node(liste.get(liste.size()-1));
+            for (int i = liste.size()-1; i >= 0; i--) {
+                Node venstre = new Node(liste.get(i));
+                hale.forrige = venstre;
+                joiner.add(hale.forrige.verdi.toString());
             }
-        return joiner.toString();
-*/
+
         return joiner.toString();
     }
 
