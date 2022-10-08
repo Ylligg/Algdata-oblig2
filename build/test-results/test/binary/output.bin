@@ -1,8 +1,0 @@
-[] []
-[1] [1]
-[1, 2] [2, 1]
-[] []
-[1] [1]
-[1, 2] [2, 1]
-.Oppgave 2n: Dette (292 ms) gikk altfor sakte!
-8            Har du kodet toString slik det ble bedt om?
