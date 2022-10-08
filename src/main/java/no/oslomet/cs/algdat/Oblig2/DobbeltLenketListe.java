@@ -173,23 +173,31 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             Objects.requireNonNull(verdi, "Tabellen a er null!"); // gir en melding hvis tabellen er null
         }
 
+        // kaster en feil hvis indeks  er mindre enn 0
 
-        try {
+        if(indeks < 0){
+            throw new IndexOutOfBoundsException("indeksen er mindre enn 0");
+        }
 
-                if (indeks >= 0 && indeks <= antall) {
-                    antall++;
-                    endringer++;
-                    liste.add(indeks, verdi);
+        if(antall == 0 && indeks > 0){
+            throw new IndexOutOfBoundsException("du prøver å legge inn en indeks til en tom liste");
+        }
+
+            try {
+                    if (indeks >= 0 && indeks <= antall) {
+                        antall++;
+                        endringer++;
+                        liste.add(indeks, verdi);
+                    }
+
+                    if (liste.size() == 0 && indeks == 0) {
+                        liste.add(indeks, verdi);
+                    }
+
+                } catch (IndexOutOfBoundsException e){
+
                 }
 
-                if (liste.size() == 0 && indeks == 0) {
-                    liste.add(indeks, verdi);
-                }
-
-
-        } catch(IndexOutOfBoundsException e){
-            e.printStackTrace();
-          }
 
     }
 
