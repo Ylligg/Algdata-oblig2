@@ -193,21 +193,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-    //Oppgave 7 1.utkast
+    //Oppgave 7 første del ------------------------------
+    //1 av 2 deler skrevet, ikke testet ennå
     @Override
     public void nullstill() {
-        Node temp = new Node<>();
+         Node temp = this.hode;
 
-        while (this.hode != null) {
-            temp = this.hode;
-            this.hode = this.hode.neste;
+        while (temp != null) {
             temp = null;
             endringer ++;
+            temp = temp.neste;
         }
         hode=null;
         hale=null;
         antall=0;
     }
+    //Oppgave 7 slutt --------------------------------------
 
     @Override
     public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
