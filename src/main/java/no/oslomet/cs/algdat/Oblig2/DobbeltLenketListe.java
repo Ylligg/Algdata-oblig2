@@ -150,20 +150,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    // --------------------Oppgave 4 del 2 START -------------------------------
+    // må testes, ikek sikker om dett funker ennå
     @Override
     public boolean inneholder(T verdi) {
-        throw new UnsupportedOperationException();
+        if (indeksTil(verdi)>-1) {
+            return true;
+        } else return false;
     }
+     // --------------------Oppgave 4 del 2 SLUTT -------------------------------
 
     @Override
     public T hent(int indeks) {
         throw new UnsupportedOperationException();
     }
 
+    // --------------------Oppgave 4 del 1 START -------------------------------
     @Override
     public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+        int indeks = 0;
+        Node current = hode;
+        while (current != null) {
+            if (current.verdi == verdi) {
+                return indeks;
+            } else indeks++;
+        }
+        return -1;
     }
+    // --------------------Oppgave 4 del 1 SLUTT -------------------------------
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
