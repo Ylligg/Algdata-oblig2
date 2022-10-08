@@ -202,13 +202,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        for(int i =0; i < liste.size();i++){
-            if(liste.get(i).equals(verdi)){
-                return i;
-            }
-        }
-        return -1;
+        throw new UnsupportedOperationException();
     }
+
 
     // --------------------Oppgave 4 del 1 START -------------------------------
     @Override
@@ -226,30 +222,69 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
 
         //------------------------OPPGAVE 3.a.3 START-------------------------------------
 //****Den  skal  erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før***
-        Objects.requireNonNull(nyverdi);
+
+    if(nyverdi == null) {
+        Objects.requireNonNull(nyverdi, "verdi er null");
+    }
         indeksKontroll(indeks,false);
         Node<T> nåværende = finnNode(indeks);
 
         endringer++;
-
         nåværende.verdi = nyverdi;
-
         return nåværende.verdi;
     }
 //-----------------------OPPGAVE 3.a.3 FERDIG---------------------------------------
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+
+      int fant = 0;
+      for(int i =0; i < liste.size();i++){
+        if(liste.get(i).equals(verdi)){
+            fant++;
+            liste.remove(i);
+            break;
+
+        }
+      }
+
+      if(fant==0){
+          return false;
+      } else{
+          return true;
+      }
+
     }
 
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+
+        if(liste.size() == 0){ // om tabellen er tom så kan ingenting fjernes
+            throw new IndexOutOfBoundsException("du prøver å finne indeks til en tom tabell");
+        }
+        int index = 0;
+        Node<T> cur = hode;
+        if(indeks >= 0 && indeks <= liste.size()-1){
+
+            for(int i = 0; i <= indeks; i++){
+               cur = cur.neste;
+               index++;
+            }
+            antall--;
+            endringer++;
+            liste.remove(index);
+
+        } else{// indeksen kan ikke være større enn siste verdien
+            throw new IndexOutOfBoundsException("indeksen er utenfor tabellen");
+        }
+
+        return cur.verdi;
+
+
+
     }
 
     //Oppgave 7 første del ------------------------------
@@ -283,6 +318,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hode.neste = høyre;
             joiner.add(hode.neste.verdi.toString());
         }
+
         return joiner.toString();
     }
 
