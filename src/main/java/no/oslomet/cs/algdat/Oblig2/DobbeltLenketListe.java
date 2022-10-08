@@ -4,15 +4,9 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.Comparator;
-import java.util.Iterator;
+import java.util.*;
 
 
-import java.util.ConcurrentModificationException;
-import java.util.NoSuchElementException;
-import java.util.StringJoiner;
-
-import java.util.Objects;
 import java.util.function.Predicate;
 
 
@@ -52,33 +46,51 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     // målet er å ha en liste som kan gå fram og tilbake ved hjelp av hode og hale pekeren
 
-
+    LinkedList liste = new LinkedList();
     public DobbeltLenketListe(T[] a) { // skal lage listen
 
+        DobbeltLenketListe<Integer> list = new DobbeltLenketListe<>();
+        System.out.println(list.toString() + " " + list.omvendtString());
+        for (int i = 1; i <= 2; i++) {
+            list.leggInn(i);
+            System.out.println(list.toString() + " " + list.omvendtString());
+        }
 
-        if(a == null) {
+        if(a == null) { // kaster en feil hvis tabellen er null
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
         }
 
         if(a.length > 0){
-            int i =0;
-            for(; i < a.length;i++) {
+            int v = 0; // har en variabel for effektiviteten av søket
 
-                if (a[i] != null) { // om verdien er ikke null så lages det en ny node
-                    hode = new Node<>(a[i]); // den nye noden blir hoden siden den blir adda fra ventre siden
-                    antall++; // øker variabel antall av antall elementer i tabellen
-                    break; // går ut av løkka
+            for(int i =0; i < a.length;i++){ // ser gjennom om de første verdiene er null, hvis ikke så setter den  verdien til å bli hode
+                if(a[v] == null) v++; // fortsetter til den ikke er null
+
+                else { // når den ikke er null så er den hode og løkka er ferdig
+                    hode= new Node<>(a[v]);
+                    break;
                 }
             }
-            hale = hode; // hvis det er bare en verdi så vil hode og hale være i samme posisjon
-            i++;
-            for(; i < a.length;i++){
-                if (a[i] != null) {
-                    hale = new Node<>(a[i]); // nye noden blir hale
-                    hale.neste = hale; // halen fortsetter til slutten av tabellen
-                    antall++;
+
+            hode = new Node<>(a[0]); // ellers så er første posisjonen hode
+            Node current = hode; // lager en variabel for å finne
+
+            for(int i =v; i < a.length;i++){ // gjør det mer effektiv hvis de første veridene er null så starter vi med løkka til når det ikke er null
+                Node ny = new Node(a[i]);
+                ny.forrige = current;
+                current.neste = ny;
+                current = ny;
+                antall++;
+
+                if(a[i]==null) {
+                    antall--;
+                    continue;
+                } else{
+                    liste.add(a[i]);
                 }
             }
+            hale = current;
+
         }
     }
 
@@ -133,36 +145,69 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean leggInn(T verdi) {
 
-        // må finne en måte å imlimintere hode slik at den kan oppdateres til å peke mot den nye Noden siden når vi adder ny Node så
-
         if(verdi == null){
-            Objects.requireNonNull(verdi, "Verdien er null!"); // gir en melding hvis tabellen er null
             return false;
-        } else{
-            antall++;
-            return true;
         }
+
+        Node lagtinn = new Node(verdi);
+        endringer++;
+        antall++;
+        liste.add(lagtinn.verdi);
+        return true;
 
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+        if(verdi == null) { // kaster en feil hvis tabellen er null
+            Objects.requireNonNull(verdi, "Tabellen a er null!"); // gir en melding hvis tabellen er null
+        }
+
+        // kaster en feil hvis indeks  er mindre enn 0
+
+        if(indeks < 0){
+            throw new IndexOutOfBoundsException("indeksen er mindre enn 0");
+        }
+
+        if(antall == 0 && indeks > 0){
+            throw new IndexOutOfBoundsException("du prøver å legge inn en indeks til en tom liste");
+        }
+
+        try {
+            if (indeks >= 0 && indeks <= antall) {
+                antall++;
+                endringer++;
+                liste.add(indeks, verdi);
+            }
+
+            if (liste.size() == 0 && indeks == 0) {
+                liste.add(indeks, verdi);
+            }
+
+        } catch (IndexOutOfBoundsException e){
+
+        }
     }
 
     // --------------------Oppgave 4 del 2 START -------------------------------
     // må testes, ikek sikker om dett funker ennå
     @Override
     public boolean inneholder(T verdi) {
-        if (indeksTil(verdi)>-1) {
-            return true;
-        } else return false;
+        if(indeksTil(verdi) == -1){
+            return false;
+        }
+        return true;
     }
      // --------------------Oppgave 4 del 2 SLUTT -------------------------------
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        for(int i =0; i < liste.size();i++){
+            if(liste.get(i).equals(verdi)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     // --------------------Oppgave 4 del 1 START -------------------------------
@@ -226,19 +271,38 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
-        StringJoiner joiner = new StringJoiner(",");
+        StringJoiner joiner = new StringJoiner(", ", "[","]");
 
-
+        if(liste.size() == 0){
+            joiner.add("");
+            return joiner.toString();
+        }
+        hode = new Node(liste.get(0));
+        for (int i = 0; i < liste.size(); i++) {
+            Node høyre = new Node(liste.get(i));
+            hode.neste = høyre;
+            joiner.add(hode.neste.verdi.toString());
+        }
         return joiner.toString();
     }
 
 
     public String omvendtString() { // oppgave 2 hale->hode
-        StringJoiner joiner = new StringJoiner(","); // trenger denne
+        StringJoiner joiner = new StringJoiner(", ", "[", "]"); // trenger denne
 
+        if(liste.size() == 0){
+            joiner.add("");
+            return joiner.toString();
+        }
 
+        hale = new Node(liste.get(liste.size()-1));
+        for (int i = liste.size()-1; i >= 0; i--) {
+            Node venstre = new Node(liste.get(i));
+            hale.forrige = venstre;
+            joiner.add(hale.forrige.verdi.toString());
+        }
 
-        return joiner.toString(); // riktig
+        return joiner.toString();
 
     }
 
