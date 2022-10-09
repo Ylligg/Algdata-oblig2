@@ -360,13 +360,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         private int iteratorendringer;
 
         private DobbeltLenketListeIterator() {
-            denne = hode;     // p starter på den første i listen
+            denne = hode;     // "denne" starter på den første i listen
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+
+            denne=finnNode(indeks);
+            fjernOK=false;
+            iteratorendringer=endringer;
         }
 
         @Override
