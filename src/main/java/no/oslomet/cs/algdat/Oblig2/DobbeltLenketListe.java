@@ -214,7 +214,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         while (current != null) {
             if (current.verdi == verdi) {
                 return indeks;
-            } else indeks++;
+            } else {
+                indeks++;
+                current = current.neste;
+              }  
         }
         return -1;
     }
