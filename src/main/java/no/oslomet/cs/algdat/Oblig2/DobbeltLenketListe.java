@@ -121,12 +121,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //-----------------Oppgave 3.b hjelpemetode-------
     private void fraTilKontroll(int tabellengde, int fra, int til) {
         tabellengde=til-fra;
-        if (fra < 0 || til > antall) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (fra > til) {
-            throw new IllegalArgumentException();
-        }
+
+        if (fra < 0)                                  // fra er negativ
+            throw new ArrayIndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > tablengde)                          // til er utenfor tabellen
+            throw new ArrayIndexOutOfBoundsException
+                    ("til(" + til + ") > tablengde(" + tablengde + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
     }
     //---------Oppgave 3.b hjelpemetode ferdig--------
 
