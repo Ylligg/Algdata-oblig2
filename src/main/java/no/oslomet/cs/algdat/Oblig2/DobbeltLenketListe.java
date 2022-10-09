@@ -406,9 +406,23 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     } // class DobbeltLenketListeIterator
 
+    //----------------OPPGAVE 10 START-----------
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new UnsupportedOperationException();
+        for(int i=0; i< liste.antall();i++){
+            for (int j=0; j< liste.antall();j++){
+                int sammenlgn=c.compare(liste.hent(i),liste.hent(j));
+                if (sammenlgn<0){
+                    T temp=liste.hent(i);
+                    liste.oppdater(i, liste.hent(i));
+                    liste.oppdater(j,liste.hent(j));
+                }
+            }
+        }
     }
+    //----------------OPPGAVE 10 FERDIG-----------
+
+    
+    
     //------------------Oppgave 3 a.1--------//
     private Node<T> finnNode(int indeks) {
         Node<T>nåværende;
