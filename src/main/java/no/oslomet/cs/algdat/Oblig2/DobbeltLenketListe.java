@@ -202,7 +202,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        Node <T>nåværende=finnNode(indeks);
+        return nåværende.verdi;
     }
 
 
