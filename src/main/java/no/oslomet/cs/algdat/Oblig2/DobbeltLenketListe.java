@@ -192,9 +192,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            throw new UnsupportedOperationException();
-        }
+            if (!hasNext())throw new NoSuchElementException("Ingen verdier");
+            fjernOK=true;
+            T temp=denne.verdi;
+            denne=denne.neste;
 
+            return denne.verdi;
+        }
+        /*Kode fra foresesningen programkode 3.3.4.c
+
+ public T next()
+ {
+   if (!hasNext()) throw new NoSuchElementException("Ingen verdier!");
+
+   fjernOK = true;            // nå kan remove() kalles
+   T denneVerdi = p.verdi;    // tar vare på verdien i p
+   p = p.neste;               // flytter p til den neste noden
+
+   return denneVerdi;         // returnerer verdien
+ }*/
         @Override
         public void remove() {
             throw new UnsupportedOperationException();
