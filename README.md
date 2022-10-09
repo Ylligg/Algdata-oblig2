@@ -11,8 +11,8 @@ Oppgaven er levert av følgende studenter:
 # Arbeidsfordeling
 
 I oppgaven har vi hatt følgende arbeidsfordeling:
-* Ylli har hatt hovedansvar for oppgave 1, 2, og 3. 
-* Sena har hatt hovedansvar for oppgave ... 
+* Ylli har hatt hovedansvar for oppgave 1, 2, 4, 5. 
+* Sena har hatt hovedansvar for oppgave 3 og 10. 
 * Håkon har hatt hovedansvar for oppgave 4 og 7.
 * Oliver har hatt hovedansvar for oppgave ...
 
