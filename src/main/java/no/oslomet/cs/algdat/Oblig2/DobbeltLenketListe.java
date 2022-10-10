@@ -51,7 +51,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         DobbeltLenketListe<Integer> list = new DobbeltLenketListe<>();
         System.out.println(list.toString() + " " + list.omvendtString());
-        for (int i = 1; i <= 1; i++) {
+        for (int i = 1; i <= 3; i++) {
             list.leggInn(i);
             System.out.println(list.toString() + " " + list.omvendtString());
         }
@@ -215,17 +215,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // --------------------Oppgave 4 del 1 START -------------------------------
     @Override
     public int indeksTil(T verdi) {
+        /*
         int indeks = 0;
         Node current = hode;
-        while (current != null) {
+        while (current == null) {
             if (current.verdi == verdi) {
                 return indeks;
             } else {
                 indeks++;
                 current = current.neste;
-              }  
+              }
         }
         return -1;
+
+         */
+
+        for(int i =0; i < liste.size();i++){
+            if(liste.get(i).equals(verdi)){
+                return i;
+            }
+        }
+
+        return -1;
+
+
     }
     // --------------------Oppgave 4 del 1 SLUTT -------------------------------
 
@@ -302,12 +315,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         while (temp != null) {
             temp = null;
-            endringer ++;
+            endringer++;
             temp = temp.neste;
         }
         hode=null;
         hale=null;
         antall=0;
+        liste.clear();
     }
     //Oppgave 7 slutt --------------------------------------
 
@@ -315,7 +329,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
         StringJoiner joiner = new StringJoiner(", ", "[","]");
 
-        if(liste.size() == 0){
+        if(antall == 0){
+            joiner.add("");
             return joiner.toString();
         }
 
@@ -328,11 +343,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return joiner.toString();
     }
 
-
     public String omvendtString() { // oppgave 2 hale->hode
         StringJoiner joiner = new StringJoiner(", ", "[", "]"); // trenger denne
 
-        if(liste.size() == 0){
+        if(antall == 0){
+            joiner.add("");
             return joiner.toString();
         }
 
