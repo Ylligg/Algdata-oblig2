@@ -48,13 +48,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     LinkedList liste = new LinkedList();
     public DobbeltLenketListe(T[] a) { // skal lage listen
-
+/*
         DobbeltLenketListe<Integer> list = new DobbeltLenketListe<>();
         System.out.println(list.toString() + " " + list.omvendtString());
         for (int i = 1; i <= 3; i++) {
             list.leggInn(i);
             System.out.println(list.toString() + " " + list.omvendtString());
         }
+
+ */
 
         if(a == null) { // kaster en feil hvis tabellen er null
             Objects.requireNonNull(a, "Tabellen a er null!"); // gir en melding hvis tabellen er null
@@ -207,8 +209,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        Node <T>nåværende=finnNode(indeks);
-        return nåværende.verdi;
+
+        Node<T> denneNode = finnNode(indeks);
+        return denneNode.verdi;
+
     }
 
 
@@ -289,7 +293,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     int tall =0;
 
     if(indeks >= 0 && indeks <= liste.size()-1){
-
             for(int i = 0; i <= indeks; i++){
                 cur = cur.neste;
                 tall++;
@@ -329,7 +332,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String toString() { // oppgave 2 hode->hale (finn en måte å adde inn veridene)
         StringJoiner joiner = new StringJoiner(", ", "[","]");
 
-        if(antall == 0){
+        if(antall == 0 || liste.size() ==0){
             joiner.add("");
             return joiner.toString();
         }
@@ -346,7 +349,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String omvendtString() { // oppgave 2 hale->hode
         StringJoiner joiner = new StringJoiner(", ", "[", "]"); // trenger denne
 
-        if(antall == 0){
+        if(antall == 0 || liste.size() ==0){
             joiner.add("");
             return joiner.toString();
         }
@@ -370,7 +373,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public Iterator<T> iterator(int indeks) {
 
        if(indeks>=0 && indeks <= liste.size() ){
-
             return iterator(indeks);
        } else {
            throw new NoSuchElementException("Ingen verdier");
@@ -431,6 +433,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         @Override
         public void remove() {
 
+            Node<T> p = denne;
             if(antall == 0){
                 throw new IllegalStateException("kan ikke fjerne, siden det ikke finnes noen elementer");
             }
@@ -439,41 +442,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 throw new ConcurrentModificationException("de er forskjellige");
             }
 
+                fjernOK = false;
+                if(antall == 1){
+                    hale = null;
+                    hode = null;
+                }
 
+                if(denne == null){
+                    hale = hale.forrige;
+                }
 
-            fjernOK = false;
-            int krav =0;
-            if(antall == 1){
-                hale = null;
-                hode = null;
-                krav++;
-            }
+                if(denne.forrige == hode){
+                    hode = hode.neste;
+                }
 
-            if(denne == null){
-                hale = hale.forrige;
-                krav++;
-            }
-
-            if(denne.forrige == hode){
-                hode = hode.neste;
-                krav++;
-            }
-
-            if(krav == 3){
-                antall--;
                 endringer++;
                 iteratorendringer++;
-            }
-
-
-
-
-
-
-
-
-
-
+                liste.remove(p.forrige);
+                antall--;
 
         }
 
