@@ -51,7 +51,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         DobbeltLenketListe<Integer> list = new DobbeltLenketListe<>();
         System.out.println(list.toString() + " " + list.omvendtString());
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 1; i++) {
             list.leggInn(i);
             System.out.println(list.toString() + " " + list.omvendtString());
         }
@@ -154,15 +154,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public boolean leggInn(T verdi) {
 
         if(verdi == null){
-            return false;
+            throw new NullPointerException("du prøver å legge inn en null");
         }
 
-        Node lagtinn = new Node(verdi);
-        endringer++;
-        antall++;
-        liste.add(lagtinn.verdi);
+        Node node = new Node(verdi);
+        endringer++; antall++;
+        liste.add(node.verdi);
         return true;
-
     }
 
     @Override
@@ -187,7 +185,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 endringer++;
                 liste.add(indeks, verdi);
             }
-
             if (liste.size() == 0 && indeks == 0) {
                 liste.add(indeks, verdi);
             }
@@ -319,13 +316,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringJoiner joiner = new StringJoiner(", ", "[","]");
 
         if(liste.size() == 0){
-            joiner.add("");
             return joiner.toString();
         }
+
         hode = new Node(liste.get(0));
-        for (int i = 0; i < liste.size(); i++) {
-            Node høyre = new Node(liste.get(i));
-            hode.neste = høyre;
+        for (Object i : liste) {
+            hode.neste = new Node(i);
             joiner.add(hode.neste.verdi.toString());
         }
 
@@ -337,14 +333,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringJoiner joiner = new StringJoiner(", ", "[", "]"); // trenger denne
 
         if(liste.size() == 0){
-            joiner.add("");
             return joiner.toString();
         }
 
         hale = new Node(liste.get(liste.size()-1));
         for (int i = liste.size()-1; i >= 0; i--) {
-            Node venstre = new Node(liste.get(i));
-            hale.forrige = venstre;
+            hale.forrige = new Node(liste.get(i));
             joiner.add(hale.forrige.verdi.toString());
         }
 
@@ -430,6 +424,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 throw new ConcurrentModificationException("de er forskjellige");
             }
 
+
+
             fjernOK = false;
             int krav =0;
             if(antall == 1){
@@ -453,6 +449,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 endringer++;
                 iteratorendringer++;
             }
+
+
+
+
 
 
 
