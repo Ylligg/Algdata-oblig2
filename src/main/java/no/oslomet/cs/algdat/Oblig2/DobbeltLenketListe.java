@@ -135,7 +135,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             throw new IllegalArgumentException
                     ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
     }
-    }
+
     //---------Oppgave 3.b hjelpemetode ferdig--------
 
 
@@ -259,7 +259,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             fant++;
             liste.remove(i);
             break;
-
         }
       }
 
@@ -268,34 +267,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
       } else{
           return true;
       }
-
     }
 
     @Override
     public T fjern(int indeks) {
 
-        if(liste.size() == 0){ // om tabellen er tom så kan ingenting fjernes
-            throw new IndexOutOfBoundsException("du prøver å finne indeks til en tom tabell");
-        }
-        int index = 0;
-        Node<T> cur = hode;
-        if(indeks >= 0 && indeks <= liste.size()-1){
+    if(liste.size() == 0){ // om tabellen er tom så kan ingenting fjernes
+        throw new IndexOutOfBoundsException("du prøver å finne indeks til en tom tabell");
+    }
+    Node<T> cur = hode;
+    int tall =0;
+
+    if(indeks >= 0 && indeks <= liste.size()-1){
 
             for(int i = 0; i <= indeks; i++){
-               cur = cur.neste;
-               index++;
+                cur = cur.neste;
+                tall++;
             }
+
             antall--;
             endringer++;
-            liste.remove(index);
+            liste.remove(tall);
 
-        } else{// indeksen kan ikke være større enn siste verdien
+    } else{// indeksen kan ikke være større enn siste verdien
             throw new IndexOutOfBoundsException("indeksen er utenfor tabellen");
-        }
+    }
 
-        return cur.verdi;
-
-
+    return cur.verdi;
 
     }
 
@@ -356,11 +354,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        Iterator<T> iterator = liste.iterator();
+        return iterator;
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+
+       if(indeks>=0 && indeks <= liste.size() ){
+
+            return iterator(indeks);
+       } else {
+           throw new NoSuchElementException("Ingen verdier");
+       }
+
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -375,7 +381,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-
             denne=finnNode(indeks);
             fjernOK=false;
             iteratorendringer=endringer;
@@ -389,12 +394,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         @Override
         public T next() {
             if (!hasNext())throw new NoSuchElementException("Ingen verdier");
+
+            if(iteratorendringer != endringer){
+                throw new ConcurrentModificationException("endringer stemmer ikke");
+            }
+
             fjernOK=true;
             T temp=denne.verdi;
             denne=denne.neste;
 
             return denne.verdi;
         }
+
         /*Kode fra foresesningen programkode 3.3.4.c
 
  public T next()
@@ -407,9 +418,48 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
    return denneVerdi;         // returnerer verdien
  }*/
+
         @Override
         public void remove() {
-            throw new UnsupportedOperationException();
+
+            if(antall == 0){
+                throw new IllegalStateException("kan ikke fjerne, siden det ikke finnes noen elementer");
+            }
+
+            if(endringer != iteratorendringer){
+                throw new ConcurrentModificationException("de er forskjellige");
+            }
+
+            fjernOK = false;
+            int krav =0;
+            if(antall == 1){
+                hale = null;
+                hode = null;
+                krav++;
+            }
+
+            if(denne == null){
+                hale = hale.forrige;
+                krav++;
+            }
+
+            if(denne.forrige == hode){
+                hode = hode.neste;
+                krav++;
+            }
+
+            if(krav == 3){
+                antall--;
+                endringer++;
+                iteratorendringer++;
+            }
+
+
+
+
+
+
+
         }
 
     } // class DobbeltLenketListeIterator
@@ -448,7 +498,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 nåværende = nåværende.forrige;
             }
             return nåværende;
-        }}
+        }
+    }
     //------------------Oppgave 3 a.1 er ferdig--------//
 
 } // class DobbeltLenketListe

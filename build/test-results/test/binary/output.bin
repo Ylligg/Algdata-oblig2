@@ -1,0 +1,76 @@
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+&Oppgave 10d: Feil for listen C, B, A!
+[] []
+[1] [1]
+[1, 2] [2, 1]
+2Oppgave 10e: Feil for listen G, B, F, C, E, D, A!
+[] []
+[1] [1]
+[1, 2] [2, 1]
+$Oppgave 10f: Metoden sorterer feil!
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+.Oppgave 2c: leggInn skal stoppe null-verdier!
+[] []
+[1] [1]
+[1, 2] [2, 1]
+[] []
+[1] [1]
+[1, 2] [2, 1]
+.Oppgave 2n: Dette (306 ms) gikk altfor sakte!
+8            Har du kodet toString slik det ble bedt om?
+,Oppgave 4a: Stygg feil! Du MÅ bruke equals
+8            og ikke == i sammenligningen i indeksTil()!
+$Oppgave 4c: Verdien 1 har indeks 0!
+(Oppgave 4e: Feil i metoden indeksTil()!
+)Oppgave 4h: Feil i metoden inneholder()!
+DOppgave 4i: Skal gi indeks til første forekomst hvis like verdier!
+[] []
+[1] [1]
+[1, 2] [2, 1]
+	(Oppgave 7b: Feil i metoden nullstill()!
+	(Oppgave 7c: Feil i metoden nullstill()!
+	(Oppgave 7d: Feil i metoden nullstill()!
+2Oppgave 9a: Feil i antall-oppdatering i remove()!
