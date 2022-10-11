@@ -70,7 +70,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 }
             }
 
-            if(v == a.length){
+            if(v == a.length){ // hvis hele tabellen er null så skjer ingenting
                 return;
             }
 

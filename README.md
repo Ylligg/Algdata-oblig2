@@ -18,9 +18,9 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 
 # Oppgavebeskrivelse
 
-I oppgave 1 
+I oppgave 1 så opprettet vi den dobelte linkede listen ved først å se om de første verdiene er null, hvis de er så blir hode den første verdien som ikke er null og den blir første node (current). etter det så søkes det gjennom listen, om en element er null så skippes den og hvis a[i] != null så lages en ny node (ny). for å få relasjon med hverandre så er ny sin forrige current og current sin neste ny. etter relasjonen så blir nye noden current. når det skjer så har vi klart å få en ny node inn så blir antall plussa. når løkken er ferdig så blir halen current siden current var den siste noden.  
 
-I oppgave 2 så brukte vi en ... til å ...
+I oppgave 2 så brukte vi 
 
 I oppgave 3.a lagde vi først hjelpemetoden Node<T> finnNode(int indeks). Så sammenlignet vi indeks og antall/2 ved å bruke en if løkka. Hvis indeksen er mindre enn antal/2, skal nåværende verdi være lik hode.Så lagde vi en for løkka som skal letes etter noden starte fra den nåværende verdien og gå mot høyre ved hjelp av neste pekeren.
 Neste steg var å lage  else løkka (hvis antall/2 er ikke mindre enn indeksen ) som tar inn en for løkka og returnerer den nåværende verdien. Hvis  antall/2 er ikke mindre enn indeksen betyr det at nåværende verdi er lik hale og for løkkan skal letes etter noden starte fra halen og gå mot venstre ved hjelp av forrige pekeren. 
