@@ -94,7 +94,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public Liste<T> subliste(int fra, int til) {
         //----------------OPPGAVE 3.b START--------------
-        fraTilKontroll(antall,fra,til); //Sjekkes om indeksene fra og til er lovlige.
+        fraTilKontroll(fra,til); //Sjekkes om indeksene fra og til er lovlige.
 
         Liste<T> liste= new DobbeltLenketListe<>();
         //Bytt  ut ordet tablengde med ordet antall
@@ -178,31 +178,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        if(verdi == null) { // kaster en feil hvis tabellen er null
+
             Objects.requireNonNull(verdi, "Tabellen a er null!"); // gir en melding hvis tabellen er null
-        }
+            indeksKontroll(indeks, true);
 
-        // kaster en feil hvis indeks  er mindre enn 0
-
-        if(indeks < 0){
-            throw new IndexOutOfBoundsException("indeksen er mindre enn 0");
-        }
-
-        if(antall == 0 && indeks > 0){
-            throw new IndexOutOfBoundsException("du prøver å legge inn en indeks til en tom liste");
-        }
-
-        try {
-            if (indeks >= 0 && indeks <= antall) {
-                antall++;
-                endringer++;
-            }
-            if (indeks == 0) {
+            if(antall == 0 || antall == indeks){
+                leggInn(verdi);
+                return;
             }
 
-        } catch (IndexOutOfBoundsException e){
+            Node<T> r = finnNode(indeks);
+            Node<T> p = r.forrige;
+            Node<T> q = new Node<>(verdi,p, r);
 
-        }
+            if(indeks == 0){
+                r.forrige = q;
+                hode = q;
+            } else {
+                p.neste = q;
+                r.forrige = q;
+            }
+
+        endringer++;
+        antall++;
     }
 
     // --------------------Oppgave 4 del 2 START -------------------------------
@@ -232,25 +230,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // --------------------Oppgave 4 del 1 START -------------------------------
     @Override
     public int indeksTil(T verdi) {
-        /*
+
         int indeks = 0;
-        Node current = hode;
-        while (current == null) {
-            if (current.verdi == verdi) {
+
+        if(tom()){
+            return -1;
+        }
+        if(verdi == null){
+            return -1;
+        }
+
+        Node<T> current = hode;
+        while (current != null) {
+            if (current.verdi.equals(verdi)) {
                 return indeks;
+
             } else {
                 indeks++;
                 current = current.neste;
               }
         }
-        return -1;
-
-         */
-
-
-
 
         return -1;
+
+
+
+
+
 
 
     }
