@@ -316,6 +316,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     //Oppgave 7 første del ------------------------------
     //1 av 2 deler skrevet, ikke testet ennå
+    // https://developer.classpath.org/doc/java/util/LinkedList-source.html
     @Override
     public void nullstill() {
          Node temp = this.hode;
