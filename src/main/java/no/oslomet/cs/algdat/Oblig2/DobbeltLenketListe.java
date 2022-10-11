@@ -315,21 +315,35 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     //Oppgave 7 første del ------------------------------
-    //1 av 2 deler skrevet, ikke testet ennå
-    // https://developer.classpath.org/doc/java/util/LinkedList-source.html
+    // Måte 1 er hentet fra kildekoden for metoden clear() i klassen LinkedList i Java som beskrevet i oppgaven.
+    // Link til hvor kildekode er hentet fra: https://developer.classpath.org/doc/java/util/LinkedList-source.html
     @Override
     public void nullstill() {
-         Node temp = this.hode;
 
-        while (temp != null) {
-            temp = null;
-            endringer++;
-            temp = temp.neste;
+        //Måte 1:
+        for (Node temp= hode; temp != null;) {
+            Node next = temp.neste;
+            temp.verdi = null;
+            temp.neste = null;
+            temp.forrige = null;
+            temp = next;
         }
+        hode=hale=null;
+        antall=0;
+        endringer++;
+
+      /*  Måte 2:
+     Node temp = this.hode;
+
+     while(temp != null) {
+        fjern(0);
+     }
         hode=null;
         hale=null;
         antall=0;
+        endringer++; */
     }
+
     //Oppgave 7 slutt --------------------------------------
 
     @Override
