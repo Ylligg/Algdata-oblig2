@@ -1,6 +1,2 @@
-&Oppgave 10d: Feil for listen C, B, A!
-2Oppgave 10e: Feil for listen G, B, F, C, E, D, A!
-$Oppgave 10f: Metoden sorterer feil!
--Oppgave 2n: Dette (28 ms) gikk altfor sakte!
-8            Har du kodet toString slik det ble bedt om?
-2Oppgave 9a: Feil i antall-oppdatering i remove()!
+6Oppgave 3n: Metoden oppdater() returnerer feil verdi!
+6Oppgave 3q: Metoden oppdater() returnerer feil verdi!
