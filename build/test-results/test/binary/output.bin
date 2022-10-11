@@ -1,0 +1,27 @@
+&Oppgave 10d: Feil for listen C, B, A!
+2Oppgave 10e: Feil for listen G, B, F, C, E, D, A!
+$Oppgave 10f: Metoden sorterer feil!
+/Oppgave 6d: Indekssjekken kaster feil unntak!!
+6Oppgave 6ga: Feil returverdi i metoden fjern(indeks)!
+*Oppgave 6i: Feil i fjern(indeks)-metoden!
+*Oppgave 6j: Feil i fjern(indeks)-metoden!
+5Oppgave 6kb: Feil i antall-oppdateringen i fjern(T)!
+>             Reduseres ikke antall? Reduserers den to ganger!
+<Oppgave 6kc: Skal fjerne første forekomst hvis flere like!
+0Oppgave 6l: Feil returverdi i metoden fjern(T)!
+%Oppgave 6m: Feil i metoden fjern(T)!
+%Oppgave 6n: Feil i metoden fjern(T)!
+%Oppgave 6o: Feil i metoden fjern(T)!
+%Oppgave 6p: Feil i metoden fjern(T)!
+:Oppgave 6q: Feil i antall-oppdateringen metoden fjern(T)!
+,Oppgave 6t: Stygg feil! Du MÅ bruke equals
+5            og ikke == i sammenligningen i fjern(T)!
+?Oppgave 6u: Her kastes det et unntak, men det skal ikke skje!!
+,Oppgave 6y: Her må det være en pekerfeil!
+,Oppgave 6z: Her må det være en pekerfeil!
+-Oppgave 6zb: Her må det være en pekerfeil!
+-Oppgave 6zc: Her må det være en pekerfeil!
+-Oppgave 6ze: Her må det være en pekerfeil!
+-Oppgave 6zf: Her må det være en pekerfeil!
+AOppgave 6zg: Ineffektiv kode! Har du kodet den ene fjern-metoden
+Jved hjelp av den andre? Eller så er en av fjern-metodene dine litt treg.
