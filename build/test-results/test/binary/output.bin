@@ -1,6 +1,3 @@
-&Oppgave 10d: Feil for listen C, B, A!
-2Oppgave 10e: Feil for listen G, B, F, C, E, D, A!
-$Oppgave 10f: Metoden sorterer feil!
 /Oppgave 6d: Indekssjekken kaster feil unntak!!
 6Oppgave 6ga: Feil returverdi i metoden fjern(indeks)!
 *Oppgave 6i: Feil i fjern(indeks)-metoden!
@@ -25,3 +22,5 @@
 -Oppgave 6zf: Her må det være en pekerfeil!
 AOppgave 6zg: Ineffektiv kode! Har du kodet den ene fjern-metoden
 Jved hjelp av den andre? Eller så er en av fjern-metodene dine litt treg.
+
+=Oppgave 8k: ForventetAntallEndringer ikke endret i fjern(T)!

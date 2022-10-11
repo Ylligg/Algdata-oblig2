@@ -226,13 +226,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
-
     // --------------------Oppgave 4 del 1 START -------------------------------
     @Override
     public int indeksTil(T verdi) {
 
         int indeks = 0;
-
         if(tom()){
             return -1;
         }
@@ -252,13 +250,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         return -1;
-
-
-
-
-
-
-
     }
     // --------------------Oppgave 4 del 1 SLUTT -------------------------------
 
@@ -302,16 +293,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 cur = cur.neste;
                 tall++;
             }
-
             antall--;
             endringer++;
 
     } else{// indeksen kan ikke være større enn siste verdien
             throw new IndexOutOfBoundsException("indeksen er utenfor tabellen");
     }
-
     return cur.verdi;
-
     }
 
     //Oppgave 7 første del ------------------------------
@@ -354,9 +342,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         StringBuilder builder = new StringBuilder();
-
         builder.append("[");
-
         Node<T> cur = hode;
 
         for(int i =0; i < antall; i++){
@@ -369,7 +355,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         builder.append("]");
-
         return builder.toString();
     }
 
@@ -382,12 +367,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         builder.append("[");
 
         Node<T> cur = hale;
-
         for(int i =antall-1; i >= 0; i--){
-
             if(i == 0){
                 builder.append(cur.verdi);
-
             } else {
                 builder.append(cur.verdi).append(", ");
                 cur=cur.forrige;
@@ -432,18 +414,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-
-            if (!hasNext())throw new NoSuchElementException("Ingen verdier");
-
             if(iteratorendringer != endringer){
                 throw new ConcurrentModificationException("endringer stemmer ikke");
             }
 
+            if (!hasNext())throw new NoSuchElementException("Ingen verdier");
+
             fjernOK=true;
             T temp=denne.verdi;
             denne=denne.neste;
-
-            return denne.verdi;
+            return temp;
         }
 
         /*Kode fra foresesningen programkode 3.3.4.c
@@ -462,28 +442,38 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         @Override
         public void remove() {
 
-            Node<T> p = denne;
-            if(antall == 0){
-                throw new IllegalStateException("kan ikke fjerne, siden det ikke finnes noen elementer");
+            if(!fjernOK){
+                throw new IllegalStateException("du kan ikke fjerne");
             }
 
             if(endringer != iteratorendringer){
                 throw new ConcurrentModificationException("de er forskjellige");
             }
 
-                fjernOK = false;
-                if(antall == 1){
-                    hale = null;
-                    hode = null;
-                }
+            fjernOK = false;
 
-                if(denne == null){
-                    hale = hale.forrige;
-                }
+            if(antall == 1){
+                hale = null;
+                hode = null;
+            }
 
-                if(denne.forrige == hode){
-                    hode = hode.neste;
-                }
+            else if(denne == null){
+                hale = hale.forrige;
+                hale.neste = null;
+            }
+
+            else if(denne.forrige == hode){
+                hode = hode.neste;
+                hode.forrige = null;
+            }
+
+            else{
+                Node<T> r = denne;
+                Node<T> p = denne.forrige.forrige;
+                p.neste = r;
+                r.forrige = p;
+
+            }
 
                 endringer++;
                 iteratorendringer++;
@@ -497,14 +487,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
 
         for(int i=0; i< liste.antall();i++){
-            for (int j=0; j< liste.antall();j++){
+            for (int j=1; j< liste.antall()-i;j++){
 
-                int sammenlgn=c.compare(liste.hent(i),liste.hent(j));
+                T value1 = liste.hent(j);
+                T value2 = liste.hent(j-1);
+
+                int sammenlgn=c.compare(value1,value2);
 
                 if (sammenlgn<0){
-                    T temp=liste.hent(i);
-                    liste.oppdater(i, liste.hent(i));
-                    liste.oppdater(j,liste.hent(j));
+                    T temp=liste.hent(j);
+                    liste.oppdater(j, liste.hent(j-1));
+                    liste.oppdater(j-1,temp);
                 }
             }
         }
