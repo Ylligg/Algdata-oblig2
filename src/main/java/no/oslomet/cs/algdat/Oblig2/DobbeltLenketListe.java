@@ -119,16 +119,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //----------------OPPGAVE 3.b FERDIG--------------
     //-----------------Oppgave 3.b hjelpemetode-------
     // Fikk hjelp fra     Programkode 1.2.3 a)
-    private void fraTilKontroll(int tabellengde, int fra, int til) {
-        tabellengde=til-fra;
+    private void fraTilKontroll(int fra, int til) {
 
         if (fra < 0)                                  // fra er negativ
-            throw new ArrayIndexOutOfBoundsException
+            throw new IndexOutOfBoundsException
                     ("fra(" + fra + ") er negativ!");
 
-        if (til > tabellengde)                          // til er utenfor tabellen
-            throw new ArrayIndexOutOfBoundsException
-                    ("til(" + til + ") > tablengde(" + tabellengde + ")");
+        if (til > antall)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > antall (" + antall + ")");
 
         if (fra > til)                                // fra er større enn til
             throw new IllegalArgumentException
@@ -263,15 +262,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //------------------------OPPGAVE 3.a.3 START-------------------------------------
 //****Den  skal  erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før***
 
-    if(nyverdi == null) {
         Objects.requireNonNull(nyverdi, "verdi er null");
-    }
         indeksKontroll(indeks,false);
+
         Node<T> nåværende = finnNode(indeks);
 
-        endringer++;
+        T  gammel = nåværende.verdi;
+
         nåværende.verdi = nyverdi;
-        return nåværende.verdi;
+        endringer++;
+        return gammel;
     }
 //-----------------------OPPGAVE 3.a.3 FERDIG---------------------------------------
 
