@@ -203,8 +203,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall++;
     }
 
-    // --------------------Oppgave 4 del 2 START -------------------------------
-    // må testes, ikek sikker om dett funker ennå
     @Override
     public boolean inneholder(T verdi) {
         if(indeksTil(verdi) == -1){
@@ -212,7 +210,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         return true;
     }
-     // --------------------Oppgave 4 del 2 SLUTT -------------------------------
+
 
     @Override
     public T hent(int indeks) { // noe funker ikke
@@ -270,37 +268,66 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean fjern(T verdi) {
 
-      int fant = 0;
+        if (verdi == null) return false;          // ingen nullverdier i listen
 
-      if(fant==0){
-          return false;
-      } else{
-          return true;
-      }
+        Node<T> q = hode, p = null, r = hode.neste;     // hjelpepekere
+
+        while (q != null)                         // q skal finne verdien t
+        {
+            if (q.verdi.equals(verdi)) break;       // verdien funnet
+            p = q; q = q.neste; r = q.neste;                     // p er forgjengeren til q
+        }
+
+        if (q == null) return false;              // fant ikke verdi
+        else if (q == hode) hode = hode.neste;    // går forbi q
+        else p.neste = r; r.forrige=p;            // går forbi q
+
+        if (q == hale) hale = p;                  // oppdaterer hale
+
+        q.verdi = null;                           // nuller verdien til q
+        q.neste = null;                           // nuller nestepeker
+        q.forrige = null;
+
+        antall--;                                 // en node mindre i listen
+
+        return true;
     }
+
 
     @Override
     public T fjern(int indeks) {
 
-    if(antall == 0){ // om tabellen er tom så kan ingenting fjernes
-        throw new IndexOutOfBoundsException("du prøver å finne indeks til en tom tabell");
-    }
-    Node<T> cur = hode;
-    int tall =0;
+        T temp;                              // hjelpevariabel
+        if (indeks < 0 || indeks > antall) {
+            throw new IndexOutOfBoundsException(melding(indeks));
+        } else {
 
-    if(indeks >= 0 && indeks <= antall){
-            for(int i = 0; i <= indeks; i++){
-                cur = cur.neste;
-                tall++;
+            if (indeks == 0)                     // skal første verdi fjernes?
+            {
+                temp = hode.verdi;                 // tar vare på verdien som skal fjernes
+                hode = hode.neste;                 // hode flyttes til neste node
+                if (antall == 1) hale = null;      // det var kun en verdi i listen
+            } else if (indeks == antall-1) {
+                temp = hale.verdi;
+                hale = hale.forrige;
+            } else {
+
+                Node<T> p = finnNode(indeks - 1);  // p er noden foran den som skal fjernes
+                Node<T> q = p.neste;               // q skal fjernes
+                temp = q.verdi;                    // tar vare på verdien som skal fjernes
+                Node<T> r = q.neste;
+                p.neste= r;
+                r.forrige=p;
             }
-            antall--;
-            endringer++;
 
-    } else{// indeksen kan ikke være større enn siste verdien
-            throw new IndexOutOfBoundsException("indeksen er utenfor tabellen");
+            antall--;                            // reduserer antallet
+            endringer++;
+        }
+
+        return temp;                         // returner fjernet verdi
+
     }
-    return cur.verdi;
-    }
+
 
     //Oppgave 7 første del ------------------------------
     // Måte 1 er hentet fra kildekoden for metoden clear() i klassen LinkedList i Java som beskrevet i oppgaven.
