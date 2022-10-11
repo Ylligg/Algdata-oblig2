@@ -179,7 +179,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public void leggInn(int indeks, T verdi) {
 
-            Objects.requireNonNull(verdi, "Tabellen a er null!"); // gir en melding hvis tabellen er null
+            Objects.requireNonNull(verdi, "verdien er null!"); // gir en melding hvis tabellen er null
             indeksKontroll(indeks, true);
 
             if(antall == 0 || antall == indeks){
@@ -281,6 +281,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 endringer++;
                 funnet = true;
                 break;       // verdien funnet
+
             }
             p = q;
             q = q.neste;
