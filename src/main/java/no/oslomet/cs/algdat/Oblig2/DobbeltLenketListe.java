@@ -276,7 +276,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         while (q != null) {   // noe feil her                   // q skal finne verdien t
 
-            if (q.verdi == verdi) {
+            if (q.verdi.equals(verdi)) {
                 antall--;                                 // en node mindre i listen
                 endringer++;
                 funnet = true;
@@ -285,26 +285,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             p = q;
             q = q.neste;
-            r = q;                     // p er forgjengeren til q
+            if(q!=null)r = q.neste;                     // p er forgjengeren til q
         }
+
 
         if (q == null) return false;              // fant ikke verdi
-        else if (q == hode) hode = hode.neste;    // går forbi q
-        else p.neste = r; r.forrige=p;            // går forbi q
-
-        if (q == hale) hale = p;                  // oppdaterer hale
-
-        q.verdi = null;                           // nuller verdien til q
-        q.neste = null;                           // nuller nestepeker
-        q.forrige = null;
-
-        if(funnet) {
-            return true;
-        } else {
-            return false;
+        if(antall==0){
+            hode=null;
+            hale=null;
         }
-    }
+        else if (q == hode) {
+            hode = hode.neste;                    // går forbi q
+            hode.forrige = null;
+        }
+        else if (q == hale) {
+            hale = hale.forrige;
+            hale.neste = null;
+        }
+        else {
+            p.neste = r;
+            r.forrige=p;  // går forbi q
+        }
 
+      return funnet;
+    }
 
     @Override
     public T fjern(int indeks) {
@@ -390,6 +394,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         StringBuilder builder = new StringBuilder();
         builder.append("[");
+
         Node<T> cur = hode;
 
             for(int i=0; i < antall; i++){

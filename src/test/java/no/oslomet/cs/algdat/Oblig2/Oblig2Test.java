@@ -758,8 +758,7 @@ class Oblig2Test {
         }
 
         liste.fjern("B");
-        System.out.println(liste.fjern("F")); // true
-        System.out.println(liste.fjern("I")); // false <-
+
         if (liste.fjern("F") != true
                 || liste.fjern("I") != true) {
             antallFeil++;
