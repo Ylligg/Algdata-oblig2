@@ -432,7 +432,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
+
         return new DobbeltLenketListeIterator();
+
     }
 
     public Iterator<T> iterator(int indeks) {
@@ -451,6 +453,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
+
+            denne = finnNode(indeks);
+            fjernOK = false;
+            iteratorendringer = endringer;
 
         }
 
