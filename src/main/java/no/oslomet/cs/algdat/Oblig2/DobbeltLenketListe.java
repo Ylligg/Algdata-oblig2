@@ -503,15 +503,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         @Override
         public void remove() {
 
-            if (!fjernOK) throw new IllegalStateException("Det går ikke å fjerne");
+            if (!fjernOK) {
+                throw new IllegalStateException("du kan ikke fjerne");
+            }
 
-            if (iteratorendringer != endringer) throw new ConcurrentModificationException("Endrinene er forskjellige");
+            if (endringer != iteratorendringer) {
+                throw new ConcurrentModificationException("de er forskjellige");
+            }
 
             fjernOK = false;
 
             if (antall == 1) {
-                hode = null;
                 hale = null;
+                hode = null;
             } else if (denne == null) {
                 hale = hale.forrige;
                 hale.neste = null;
@@ -523,57 +527,57 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 Node<T> p = denne.forrige.forrige;
                 p.neste = r;
                 r.forrige = p;
+
             }
 
-            iteratorendringer++;
             endringer++;
+            iteratorendringer++;
             antall--;
 
+        } // class DobbeltLenketListeIterator
+    }
+        //----------------OPPGAVE 10 START-----------
+        public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
 
-    } // class DobbeltLenketListeIterator
+            for (int i = 0; i < liste.antall(); i++) {
+                for (int j = 1; j < liste.antall() - i; j++) {
 
-    //----------------OPPGAVE 10 START-----------
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+                    T value1 = liste.hent(j);
+                    T value2 = liste.hent(j - 1);
 
-        for(int i=0; i< liste.antall();i++){
-            for (int j=1; j< liste.antall()-i;j++){
+                    int sammenlgn = c.compare(value1, value2);
 
-                T value1 = liste.hent(j);
-                T value2 = liste.hent(j-1);
-
-                int sammenlgn=c.compare(value1,value2);
-
-                if (sammenlgn<0){
-                    T temp=liste.hent(j);
-                    liste.oppdater(j, liste.hent(j-1));
-                    liste.oppdater(j-1,temp);
+                    if (sammenlgn < 0) {
+                        T temp = liste.hent(j);
+                        liste.oppdater(j, liste.hent(j - 1));
+                        liste.oppdater(j - 1, temp);
+                    }
                 }
             }
         }
-    }
 
 
-    private Node<T> finnNode(int indeks) {
-        Node<T>nåværende;
+        private Node<T> finnNode(int indeks) {
+            Node<T>nåværende;
 
-        if (indeks<antall/2) {
+            if (indeks<antall/2) {
 
-            nåværende = hode;
-            for (int i = 0; i < indeks; i++) {
-                nåværende = nåværende.neste;
+                nåværende = hode;
+                for (int i = 0; i < indeks; i++) {
+                    nåværende = nåværende.neste;
+                }
+                return nåværende;
+
             }
-            return nåværende;
+            else{
+                nåværende=hale;
+                for (int i = antall - 1; i > indeks; i--) {
+                    nåværende = nåværende.forrige;
+                }
+                return nåværende;
 
-        }
-        else{
-            nåværende=hale;
-            for (int i = antall - 1; i > indeks; i--) {
-                nåværende = nåværende.forrige;
             }
-            return nåværende;
         }
-    }
-
-} // class DobbeltLenketListe
+}
 
 
