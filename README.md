@@ -14,7 +14,7 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 * Ylli har hatt hovedansvar for oppgave 1, 2, 4, 5. 
 * Sena har hatt hovedansvar for oppgave 3 og 10. 
 * Håkon har hatt hovedansvar for oppgave 4 og 7.
-* Oliver har hatt hovedansvar for oppgave 6 og 8, 9. 
+* Oliver har hatt hovedansvar for oppgave 8 og 9. 
 
 # Oppgavebeskrivelse
 
@@ -39,5 +39,7 @@ For public boolean fjern(T Verdi) starter vi med å sjekke at parameterverdien i
 
 I oppgave 7 startet vi med Måte 1: her brukte vi en for-løkke til å gå gjennom lista fra start med å lage en Node temp som er lik hode og løkka fungerer kun når temp har en verdi (ikke null). Vi lager også en Node next som peker på noden etter temp. Alle temp sine verdier og pekere blir satt til null og vi setter temp lik next. Slik fortsetter løkka fram til alle er fjernet og temp=null. Til slutt utenfor løkka settes hode og hale til null, antall til 0 og endringer økes med 1. Denne metoden er hentet fra kildekoden for metoden clear() i klassen LinkedList i Java som beskrevet i oppgaven (se link i koden).
 Måte 2 er kodet ved å lage en Node temp med verdien til hode. Deretter brukte vi en while-løkke som kjører gjennom så lenge temp ikke er null. Løkka kaller på metoden fjern(0) som fjerner det første elementet i lista. Da vil resterende elementer (hvis flere) forskyves ett hakk mot hode og en ny verdi kommer i indeks 0, på denne måten kalles fjern(0) helt til alle elementer i lista har vært i indeks 0 og blitt fjernet. På samme måte som i måte 1 blir hode og hale satt til null, antall til 0 og endringer økes med 1.
+
+I oppgave 8 startet vi med å implemetere T next() hvor vi sjekke om endrinege stemte med iterasjonsendringene og hvis ikke kaste en passende melding, deretter sjekket vi om hasNext() var true. Satte til slutt fjernOK til true og returnerte verdien. Lagde metoden hvor iteratorklassen ble returnert. I neste metode satta vi pekeren denne til noden som indeksen hører til og resten av metoden var slik den var ferdigkodet. I oppgave 8d brukte vi metoden indeksKontroll() for å sjekke om indeksen var lovlig eller ikke. Dermed brukte vi forrige metode til å returnere en instans av iteratorklassen.
 
 I oppgave 9 så fiksa vi remove(). det vi gjorde først var å se ulike feil som hvis fjernok var false da kastes det en illegalstateexception. om endringer ikke er lik iteratorendringer så er det feil også. når disse kravene er fullført så vil vi gjøre fjerneok false. hvis antallet er 1 så vil vi ende opp med ingenting altså hode=null og hale=null. om denne er null så fjernes hale og hale.forrige blir nye halen. neste er for hode, denne.forrige er hode, men vi gjør hode blir neste element og hode sin gammle posisjon blir null. ellers så har vi p og r som blir connected sammen som gjør at q ikke har noen relasjoner som gjør at den blir borte. når alt er ferdig så økes endringer og iteratorendringer og antall synker
