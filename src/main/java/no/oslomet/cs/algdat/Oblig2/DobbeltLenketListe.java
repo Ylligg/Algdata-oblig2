@@ -310,7 +310,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
       return funnet;
     }
 
-
     @Override
     public T fjern(int indeks) {
 
